@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import DisplayView from './components/display/Display-view';
 import ActionBar from './components/actionBar/ActionBar-view';
 import LocalStorage from "./helpers/localStorage/localStorage";
+import good from "./assets/sounds/good.mp3";
+import bad from "./assets/sounds/bad.mp3";
 
 import useStyles from './App-styles';
 
@@ -21,13 +23,21 @@ function App() {
         useValue(saveValue(e));
     }
 
+    // play UI feedback sounds
+    const playSound = (type) => {
+        const audio = new Audio(type);
+        audio.play();
+    }
+
     // Save state value
     const saveValue = (e) =>{
         let operation;
         if (e.currentTarget.name === '-') {
             operation = value - 1;
+            playSound(bad);
         } else {
             operation = value + 1;
+            playSound(good);
         }
         storage.saveItem(operation);
         return operation;
