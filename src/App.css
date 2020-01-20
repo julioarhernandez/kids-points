@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+:root {
+  --green-dark: #17abab;
+  --green-light: #53babc;
+  --green-lighter: #84c7ca;
+  --red-dark: #f27778;
+  --red-light: #f5acad;
+  --blue-dark: #2e5676;
+  --blue-light: #58748c;
+  --rounded-amount-medium: 30px;
+  --rounded-amount-small: 10px;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
