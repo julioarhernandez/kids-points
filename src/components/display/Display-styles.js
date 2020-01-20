@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/styles";
 const useStyles = makeStyles({
     display: {
         position: 'relative',
+        overflow: 'hidden'
     },
     h1: {
         fontSize: '20vh',

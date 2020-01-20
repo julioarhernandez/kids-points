@@ -17,14 +17,16 @@ function App() {
 
     const getValue = () => storage.getItem(key) || 0;
     const [value, useValue] = useState(getValue());
+    const [animate, setAnimation] = useState(true);
 
     const couldRedeem = () => value < minRedeemPoints;
 
-    const [buttonDisabled, useButtonDisabled] = useState(couldRedeem);
+    const [buttonDisabled, setButtonDisabled] = useState(couldRedeem);
 
     useEffect(
         function UpdateButton(){
-            useButtonDisabled(couldRedeem);
+            setButtonDisabled(couldRedeem);
+            setAnimation((animate) => !animate);
         }, [value]
     );
 
@@ -74,7 +76,7 @@ function App() {
         <main className={appStyle.mainComponent}>
             <Header title="Points Kid"/>
             <DisplayView modifier={appStyle.displayComponent} text={value} clickHandler={RedeemPoints}
-                         isButtonDisabled={buttonDisabled}/>
+                         isButtonDisabled={buttonDisabled} animate={animate}/>
             <ActionBar handleClick={HandleClick} isButtonDisabled={false}/>
         </main>
     );
