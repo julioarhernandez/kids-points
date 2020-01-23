@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import useStyles from "./ActionBar-styles";
+import AppContext from "../../context/AppContext";
 import Button from "../button/Button-view";
 
-const ActionBar = ({handleClick, isButtonDisabled}) => {
+const ActionBar = ({isButtonDisabled}) => {
     const actionStyle = useStyles();
-    return(
+    const prop = useContext(AppContext);
+    return (
         <section className={actionStyle.actionbar}>
             <div className={actionStyle.actionButtonBlock}>
-                <Button name={"-"} modifier={"-red -medium -rounded"} clickHandler={handleClick} isButtonDisabled={isButtonDisabled}/>
-                <Button name={"+"} modifier={"-green -large -rounded"} clickHandler={handleClick} isButtonDisabled={isButtonDisabled}/>
+                <Button name={"-"} modifier={"-red -medium -rounded"} clickHandler={prop.HandleClick} isButtonDisabled={isButtonDisabled}/>
+                <Button name={"+"} modifier={"-green -large -rounded"} clickHandler={prop.HandleClick} isButtonDisabled={isButtonDisabled}/>
             </div>
         </section>
     );

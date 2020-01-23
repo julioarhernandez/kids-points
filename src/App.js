@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import DisplayView from './components/display/Display-view';
 import ActionBar from './components/actionBar/ActionBar-view';
 import Header from './components/header/Header-view';
+import { AppProvider } from "./context/AppContext";
 import LocalStorage from "./helpers/localStorage/localStorage";
 import './App.css';
 import good from "./assets/sounds/good.mp3";
@@ -19,7 +20,6 @@ function App() {
     const [value, useValue] = useState(getValue());
 
     const couldRedeem = () => value < minRedeemPoints;
-
     const [buttonDisabled, useButtonDisabled] = useState(couldRedeem);
 
     useEffect(
@@ -34,6 +34,10 @@ function App() {
         useValue(saveValue(e));
 
     }
+
+    const vals = {
+        hand: HandleClick
+    };
 
     // play UI feedback sounds
     const playSound = (type) => {
@@ -73,9 +77,15 @@ function App() {
     return (
         <main className={appStyle.mainComponent}>
             <Header title="Points Kid"/>
-            <DisplayView modifier={appStyle.displayComponent} text={value} clickHandler={RedeemPoints}
-                         isButtonDisabled={buttonDisabled}/>
-            <ActionBar handleClick={HandleClick} isButtonDisabled={false}/>
+            <DisplayView
+                    modifier={appStyle.displayComponent}
+                    text={value}
+                    clickHandler={RedeemPoints}
+                    isButtonDisabled={buttonDisabled}
+            />
+             <AppProvider value={{HandleClick}}>
+                <ActionBar isButtonDisabled={false}/>
+             </AppProvider>
         </main>
     );
 }
