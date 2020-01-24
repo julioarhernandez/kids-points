@@ -15,23 +15,30 @@ function App() {
     const minRedeemPoints = 5;
     const storage = new LocalStorage(key);
 
+    // Update value
     const getValue = () => storage.getItem(key) || 0;
-    const [value, useValue] = useState(getValue());
+    const [value, setValue] = useState(getValue());
 
-    const couldRedeem = () => value < minRedeemPoints;
+    // Redeem Button logic
+    const disableButton = () => value < minRedeemPoints;
+    const [buttonDisabled, setButtonDisabled] = useState(disableButton);
 
-    const [buttonDisabled, useButtonDisabled] = useState(couldRedeem);
+    // Track counter value for animation
+    const [animateCounter, setAnimateCounter] = useState(false);
+    const [animateRedeem, setAnimateRedeem] = useState(false);
 
     useEffect(
         function UpdateButton(){
-            useButtonDisabled(couldRedeem);
+            setButtonDisabled(disableButton);
+            setAnimateRedeem(!disableButton());
+            setAnimateCounter(true);
         }, [value]
     );
 
     // Handle click behavior for state update
     const HandleClick = (e) => {
         e.preventDefault();
-        useValue(saveValue(e));
+        setValue(saveValue(e));
 
     }
 
@@ -44,8 +51,7 @@ function App() {
 
     const RedeemPoints = (e) => {
         e.preventDefault();
-        useValue(saveValue(e));
-
+        setValue(saveValue(e));
     }
 
     // Save state value
@@ -73,9 +79,19 @@ function App() {
     return (
         <main className={appStyle.mainComponent}>
             <Header title="Points Kid"/>
-            <DisplayView modifier={appStyle.displayComponent} text={value} clickHandler={RedeemPoints}
-                         isButtonDisabled={buttonDisabled}/>
-            <ActionBar handleClick={HandleClick} isButtonDisabled={false}/>
+            <DisplayView
+                modifier={appStyle.displayComponent}
+                text={value}
+                animate={animateCounter}
+                animateRedeem={animateRedeem}
+                stopAnimation={() => setAnimateCounter(false)}
+                clickHandler={RedeemPoints}
+                isButtonDisabled={buttonDisabled}
+            />
+            <ActionBar
+                handleClick={HandleClick}
+                isButtonDisabled={false}
+            />
         </main>
     );
 }

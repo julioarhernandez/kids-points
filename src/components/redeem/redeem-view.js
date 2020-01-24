@@ -1,8 +1,9 @@
 import React from "react";
 import Button from "../button/Button-view";
 import useStyles from "./redeem-styles";
+import {CSSTransition} from "react-transition-group";
 
-const Redeem = ({amount, clickHandler, isButtonDisabled}) => {
+const Redeem = ({amount, animateRedeem, clickHandler, isButtonDisabled}) => {
     const redeemStyle = useStyles();
     return(
         <div className="redeemComponent">
@@ -11,7 +12,12 @@ const Redeem = ({amount, clickHandler, isButtonDisabled}) => {
                 <span>{amount}</span>
             </header>
             <div className="redeemCta">
+                <CSSTransition
+                    in={animateRedeem}
+                    timeout={500}
+                    classNames="rubberband">
                 <Button name={"redeem"} modifier={"-dark-green -small -all-rounded -padding -adornment"} clickHandler={clickHandler} isButtonDisabled={isButtonDisabled}/>
+                </CSSTransition>
             </div>
         </div>
     );
