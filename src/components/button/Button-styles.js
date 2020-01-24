@@ -5,6 +5,8 @@ const useStyles = makeStyles({
         border: 'none',
         position: 'relative',
         overflow: 'hidden',
+        outline: 'none',
+        boxShadow: '0px 9px 10px rgba(0, 0, 0, 0.1)',
         '&.-large': {
             height: '8rem',
             width: '8rem',
@@ -35,7 +37,7 @@ const useStyles = makeStyles({
             padding: '1rem 2rem',
         },
         '&.-rounded': {
-            borderRadius: 'var(--rounded-amount-medium) 0 0',
+            borderRadius: 'var(--rounded-amount-medium) var(--rounded-amount-medium) 0 var(--rounded-amount-medium)',
         },
         '&.-all-rounded': {
             borderRadius: 'var(--rounded-amount-small)',
@@ -71,6 +73,10 @@ const useStyles = makeStyles({
         },
         '&[disabled]':{
             opacity: '0.3',
+        },
+        '&:hover':{
+            transform: 'scale(0.9)',
+            transition: 'transform 0.4s'
         }
     }
 

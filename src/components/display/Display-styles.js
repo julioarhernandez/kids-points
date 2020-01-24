@@ -8,7 +8,8 @@ const useStyles = makeStyles({
         fontSize: '20vh',
         marginBlockStart: '0',
         marginBlockEnd: '0',
-        color: 'var(--blue-dark)'
+        color: 'var(--blue-dark)',
+        padding: '1rem'
     },
     gift: {
         position: 'absolute',
@@ -17,6 +18,9 @@ const useStyles = makeStyles({
     },
      displayBody: {
         textAlign: 'center',
+    },
+      displayHeader: {
+        overflow: 'hidden',
     }
 });
 export default useStyles;
