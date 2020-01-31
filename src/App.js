@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import DisplayView from './components/display/Display-view';
 import ActionBar from './components/actionBar/ActionBar-view';
 import Header from './components/header/Header-view';
+import { playBad, playGood } from "./helpers/playSound";
 import LocalStorage from "./helpers/localStorage/localStorage";
 import './App.css';
-import good from "./assets/sounds/good.mp3";
-import bad from "./assets/sounds/bad.mp3";
 
 import useStyles from './App-styles';
 
@@ -27,13 +26,11 @@ function App() {
     const [animateCounter, setAnimateCounter] = useState(false);
     const [animateRedeem, setAnimateRedeem] = useState(false);
 
-    useEffect(
-        function UpdateButton(){
-            setButtonDisabled(disableButton);
-            setAnimateRedeem(!disableButton());
-            setAnimateCounter(true);
-        }, [value]
-    );
+    useEffect( () =>{
+        setButtonDisabled(disableButton);
+        setAnimateRedeem(!disableButton());
+        setAnimateCounter(true);
+    }, [value]);
 
     // Handle click behavior for state update
     const HandleClick = (e) => {
@@ -41,13 +38,6 @@ function App() {
         setValue(saveValue(e));
 
     }
-
-    // play UI feedback sounds
-    const playSound = (type) => {
-        const audio = new Audio(type);
-        audio.play();
-    }
-
 
     const RedeemPoints = (e) => {
         e.preventDefault();
@@ -60,11 +50,11 @@ function App() {
         switch (e.currentTarget.name) {
             case '-':
                 operation = value - 1;
-                playSound(bad);
+                playBad();
                 break;
             case '+':
                 operation = value + 1;
-                playSound(good);
+                playGood();
                 break
             case 'redeem':
                 operation = value - 5;
