@@ -3,6 +3,8 @@ import DisplayView from './components/display/Display-view';
 import ActionBar from './components/actionBar/ActionBar-view';
 import Header from './components/header/Header-view';
 import { playBad, playGood } from "./helpers/playSound";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import LocalStorage from "./helpers/localStorage/localStorage";
 import './App.css';
 
@@ -52,10 +54,10 @@ function App() {
                 operation = value - 1;
                 playBad();
                 break;
-            case '+':
-                operation = value + 1;
-                playGood();
-                break
+            // case '+':
+            //     operation = value + 1;
+            //     playGood();
+            //     break
             case 'redeem':
                 operation = value - 5;
                 break;
@@ -78,10 +80,12 @@ function App() {
                 clickHandler={RedeemPoints}
                 isButtonDisabled={buttonDisabled}
             />
-            <ActionBar
-                handleClick={HandleClick}
-                isButtonDisabled={false}
-            />
+            <Provider store={store}>
+                <ActionBar
+                    handleClick={HandleClick}
+                    isButtonDisabled={false}
+                />
+            </Provider>
         </main>
     );
 }
