@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Button from "../button/Button-view";
 import useStyles from "./redeem-styles";
 import {CSSTransition} from "react-transition-group";
@@ -9,10 +9,22 @@ const Redeem = ({amount, clickHandler}) => {
     const points = useSelector(state => state.points);
     const [buttonDisabled, setButtonDisable] = useState(true);
     const [animateRedeem, setAnimateRedeem] = useState(false);
+
+    const prevRef = useRef();
     useEffect(() => {
         setButtonDisable(points <= 4);
-        points === 5 && setAnimateRedeem(true);
+        // Only play animation when points is over 4 and you were adding points
+        // The animation cannot be triggered when you decrease points from 6 to 5
+        // Keeping track of previous points
+        prevRef.current = points;
+        if (prevPoints < points && points === 5){
+            setAnimateRedeem(true);
+        }
     }, [points]);
+
+    // Keep tracking of current points
+    const prevPoints = prevRef.current;
+
     const stopAnimation = () => {
         setAnimateRedeem(false);
     }
