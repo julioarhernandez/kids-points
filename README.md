@@ -16,4 +16,4 @@ This project is a demonstration of how I use the new React approach to build app
 
 I am also using *useRef*  for a particular case where you need to keep track of previous state.
 
-For a more centralized state management I'm using **Redux** and specially the *useSelector* and *useDispatch* hooks provided in recent versions. 
+For a more centralized state management I'm using **Redux** and specially the *useSelector* and *useDispatch* hooks provided in recent versions of redux. 
