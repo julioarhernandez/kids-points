@@ -2,15 +2,18 @@ import React, {useEffect, useRef, useState} from "react";
 import Button from "../button/Button-view";
 import useStyles from "./redeem-styles";
 import {CSSTransition} from "react-transition-group";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {redeemPointActions} from "../../redux/points/pointActions";
 
 const Redeem = ({amount, clickHandler}) => {
     const redeemStyle = useStyles();
+    const dispatch = useDispatch();
     const points = useSelector(state => state.points);
     const [buttonDisabled, setButtonDisable] = useState(true);
     const [animateRedeem, setAnimateRedeem] = useState(false);
 
     const prevRef = useRef();
+
     useEffect(() => {
         setButtonDisable(points <= 4);
         // Only play animation when points is over 4 and you were adding points
@@ -41,7 +44,7 @@ const Redeem = ({amount, clickHandler}) => {
                     classNames="rubberband"
                     onEntered={stopAnimation}>
                     <Button name={"redeem"} modifier={"-dark-green -small -all-rounded -padding -adornment"}
-                            clickHandler={clickHandler} isButtonDisabled={buttonDisabled}/>
+                            clickHandler={() => { dispatch(redeemPointActions())}} isButtonDisabled={buttonDisabled}/>
                 </CSSTransition>
             </div>
         </div>
